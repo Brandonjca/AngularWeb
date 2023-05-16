@@ -16,6 +16,13 @@ export class ProductComponent implements OnInit {
   constructor(private productHttpService: ProductHttpServiceService) {
   }
 
+  productID = 0;
+  dataBody = {
+    title: '',
+    price: 0,
+    description: '',
+  };
+
   initProduct(){
     this.selectedProduct = {title: '', price: 0, description:''};
   }
@@ -23,7 +30,7 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
     //this.getProduct();
-    //this.createProduct();
+    this.createProduct();
     //this.updateProduct();
     //this.deleteProduct();
   }
@@ -59,17 +66,13 @@ export class ProductComponent implements OnInit {
       });
   }
 
-  updateProduct(id:ProductModel['id']) {
+  updateProduct() {
     const data = {
-      title: "Camisetas",
-      price: 15,
-      description: "Deportivos / Brandon Caranqui",
-      images: ['https://m.media-amazon.com/images/I/41lL4RYD-PL._SL500_.jpg'],
-      categoryId: 1
+      ...this.selectedProduct,
+      ...this.dataBody
     }
-    const url = 'http://api.escuelajs.co/api/v1/products/226';
-    this.productHttpService.update(30, data).subscribe(response => {
-      console.log(response)
+    this.productHttpService.update(this.productID, data).subscribe(response => {
+      this.getProducts()
     });
   }
 
@@ -83,5 +86,6 @@ export class ProductComponent implements OnInit {
 
   editProduct(product:ProductModel){
     this.selectedProduct = product;
+    this.productID = product.id;
   }
 }

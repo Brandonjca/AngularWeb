@@ -7,6 +7,7 @@ import { CategoryComponent } from './category/category.component';
 import { RouterModule } from '@angular/router';
 import { SharedComponent } from '../shared/shared.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     //PagesRoutingModule,
     RouterModule,
+    FormsModule
   ],
   exports:[
     DashboardComponent,
